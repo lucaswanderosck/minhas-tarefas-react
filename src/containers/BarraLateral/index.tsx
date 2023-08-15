@@ -9,12 +9,12 @@ export const BarraLateral = () => {
         <S.Input type="text" placeholder="buscar" />
       </div>
       <S.Filtros>
-        <FiltroCard legenda="pendentes" contador={1} />
-        <FiltroCard legenda="concluídas" contador={4} />
-        <FiltroCard legenda="urgentes" contador={3} />
-        <FiltroCard legenda="importantes" contador={5} />
-        <FiltroCard legenda="normais" contador={2} />
-        <FiltroCard legenda="todas" contador={3} active />
+        <FiltroCard legenda="Pendentes" contador={1} />
+        <FiltroCard legenda="Concluídas" contador={4} />
+        <FiltroCard legenda="Urgentes" contador={3} />
+        <FiltroCard legenda="Importantes" contador={5} />
+        <FiltroCard legenda="Normais" contador={2} />
+        <FiltroCard legenda="Todas" contador={3} active />
       </S.Filtros>
     </S.Aside>
   )
