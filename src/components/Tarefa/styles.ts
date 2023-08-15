@@ -1,18 +1,20 @@
 import styled from 'styled-components'
 import colors from '../../styles/colors'
+import * as enums from '../../utils/enums/Tarefa'
 
 type TagProps = {
-  priority?: string
-  status?: string
+  priority?: enums.Priority
+  status?: enums.Status
+  parameter: 'status' | 'priority'
 }
 
 const backgroundColorReturn = (props: TagProps): string => {
-  if ('status' in props) {
-    if (props.status === 'Pendente') return colors.yellow
-    if (props.status === 'Concluída') return colors.green
-  } else if ('priority' in props) {
-    if (props.priority === 'Urgente') return colors.red
-    if (props.priority === 'Importante') return colors.yellow2
+  if (props.parameter === 'priority') {
+    if (props.priority === enums.Priority.URGENTE) return colors.red
+    if (props.priority === enums.Priority.IMPORTANTE) return colors.yellow2
+  } else {
+    if (props.status === enums.Status.PENDENTE) return colors.yellow
+    if (props.status === enums.Status.CONCLUIDA) return colors.green
   }
   return '#ccc'
 }
