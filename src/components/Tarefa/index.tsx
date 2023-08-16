@@ -1,15 +1,34 @@
 import { useDispatch } from 'react-redux'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import * as S from './styles'
-import { remove } from '../../store/reducers/tarefas'
+import { remove, edit } from '../../store/reducers/tarefas'
 import TarefaClass from '../../models/Tarefa'
 
 type Props = TarefaClass
 
-export const Tarefa = ({ priority, description, status, title, id }: Props) => {
+export const Tarefa = ({
+  priority,
+  description: originDescription,
+  status,
+  title,
+  id
+}: Props) => {
   const dispatch = useDispatch()
   const [editing, setEditing] = useState(false)
+
+  const [description, setDescription] = useState('')
+
+  useEffect(() => {
+    if (originDescription.length > 0) {
+      setDescription(originDescription)
+    }
+  }, [originDescription])
+
+  const cancelEdit = () => {
+    setEditing(false)
+    setDescription(originDescription)
+  }
 
   return (
     <S.Card>
@@ -20,12 +39,31 @@ export const Tarefa = ({ priority, description, status, title, id }: Props) => {
       <S.Tag parameter="status" status={status}>
         {status}
       </S.Tag>
-      <S.Description value={description} />
+      <S.Description
+        disabled={!editing}
+        value={description}
+        onChange={(event) => setDescription(event.target.value)}
+      />
       <S.ActionBar>
         {editing ? (
           <>
-            <S.SaveButton>Salvar</S.SaveButton>
-            <S.CancelRemoveButton onClick={() => setEditing(false)}>
+            <S.SaveButton
+              onClick={() => {
+                dispatch(
+                  edit({
+                    priority,
+                    description: originDescription,
+                    status,
+                    title,
+                    id
+                  })
+                )
+                setEditing(false)
+              }}
+            >
+              Salvar
+            </S.SaveButton>
+            <S.CancelRemoveButton onClick={cancelEdit}>
               Cancelar
             </S.CancelRemoveButton>
           </>
