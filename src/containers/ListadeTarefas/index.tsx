@@ -6,19 +6,34 @@ import { RootReducer } from '../../store'
 
 export const ListadeTarefas = () => {
   const { itens } = useSelector((state: RootReducer) => state.tarefas)
-  const { keyword } = useSelector((state: RootReducer) => state.filtro)
+  const { keyword, criterion, value } = useSelector(
+    (state: RootReducer) => state.filtro
+  )
 
   const filterTarefas = () => {
-    return itens.filter(
-      (item) => item.title.toLowerCase().search(keyword.toLowerCase()) >= 0
-    )
+    let filteredTarefas = itens
+    if (keyword !== undefined) {
+      filteredTarefas = filteredTarefas.filter(
+        (item) => item.title.toLowerCase().search(keyword.toLowerCase()) >= 0
+      )
+
+      if (criterion === 'prioridade') {
+        filteredTarefas = filteredTarefas.filter(
+          (item) => item.priority === value
+        )
+      } else if (criterion === 'status') {
+        filteredTarefas = filteredTarefas.filter(
+          (item) => item.status === value
+        )
+      }
+      return filteredTarefas
+    } else {
+      return itens
+    }
   }
 
   return (
     <Container>
-      <p>
-        2 tarfefas marcadas como &quot;categoria&ldquo; e &quot;{keyword}&ldquo;
-      </p>
       <ul>
         {filterTarefas().map((t) => (
           <li key={t.title}>
