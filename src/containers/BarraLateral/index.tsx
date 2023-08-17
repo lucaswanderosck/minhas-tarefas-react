@@ -1,12 +1,23 @@
+import { useDispatch, useSelector } from 'react-redux'
 import { FiltroCard } from '../../components/FiltroCard'
 
 import * as S from './styles'
+import { RootReducer } from '../../store'
+import { changeKeyword } from '../../store/reducers/filtro'
 
 export const BarraLateral = () => {
+  const dispatch = useDispatch()
+  const { keyword } = useSelector((state: RootReducer) => state.filtro)
+
   return (
     <S.Aside>
       <div>
-        <S.Input type="text" placeholder="buscar" />
+        <S.Input
+          type="text"
+          placeholder="buscar"
+          value={keyword}
+          onChange={(event) => dispatch(changeKeyword(event.target.value))}
+        />
       </div>
       <S.Filtros>
         <FiltroCard legenda="Pendentes" contador={1} />
