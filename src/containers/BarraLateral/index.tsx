@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { FiltroCard } from '../../components/FiltroCard'
 
 import * as S from './styles'
+import { Input } from '../../styles/GlobalStyles'
 import { RootReducer } from '../../store'
 import { changeKeyword } from '../../store/reducers/filtro'
 import * as enums from '../../utils/enums/Tarefa'
@@ -13,7 +14,7 @@ export const BarraLateral = () => {
   return (
     <S.Aside>
       <div>
-        <S.Input
+        <Input
           type="text"
           placeholder="buscar"
           value={keyword}

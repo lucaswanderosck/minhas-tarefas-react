@@ -1,7 +1,11 @@
+import { BarraLateral } from '../../containers/BarraLateral'
+import { NovaTarefa } from '../../containers/NovaTarefa'
+
 export const SignUp = () => {
   return (
-    <div>
-      <h1>Nova Tarefa</h1>
-    </div>
+    <>
+      <BarraLateral />
+      <NovaTarefa />
+    </>
   )
 }
