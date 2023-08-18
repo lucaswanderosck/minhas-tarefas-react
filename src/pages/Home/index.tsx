@@ -5,7 +5,7 @@ import { ListadeTarefas } from '../../containers/ListadeTarefas'
 export const Home = () => {
   return (
     <>
-      <BarraLateral />
+      <BarraLateral showFilter />
       <ListadeTarefas />
       <Button />
     </>

@@ -1,9 +1,10 @@
 import { useDispatch } from 'react-redux'
-import { useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 
 import * as S from './styles'
-import { remove, edit } from '../../store/reducers/tarefas'
+import { remove, edit, changeStatus } from '../../store/reducers/tarefas'
 import TarefaClass from '../../models/Tarefa'
+import * as enums from '../../utils/enums/Tarefa'
 
 type Props = TarefaClass
 
@@ -30,9 +31,30 @@ export const Tarefa = ({
     setDescription(originDescription)
   }
 
+  const changeStatusTarefa = (event: ChangeEvent<HTMLInputElement>) => {
+    dispatch(
+      changeStatus({
+        id,
+        end: event.target.checked
+      })
+    )
+  }
+
   return (
     <S.Card>
-      <S.Title>{title}</S.Title>
+      <label htmlFor={title}>
+        <input
+          type="checkbox"
+          id={title}
+          checked={status === enums.Status.CONCLUIDA}
+          onChange={changeStatusTarefa}
+        />
+        <S.Title>
+          {editing && <em>Editando: </em>}
+          {title}
+        </S.Title>
+      </label>
+
       <S.Tag parameter="priority" priority={priority}>
         {priority}
       </S.Tag>

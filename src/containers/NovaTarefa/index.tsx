@@ -6,7 +6,6 @@ import * as enums from '../../utils/enums/Tarefa'
 
 import { Form, Options, RegisterButton } from './styles'
 import { MainContainer, Title, Input } from '../../styles/GlobalStyles'
-import Tarefa from '../../models/Tarefa'
 import { add } from '../../store/reducers/tarefas'
 
 export const NovaTarefa = () => {
@@ -19,14 +18,15 @@ export const NovaTarefa = () => {
 
   const registerTarefa = (event: FormEvent) => {
     event.preventDefault()
-    const tarefaToAdd = new Tarefa(
-      title,
-      priority,
-      enums.Status.PENDENTE,
-      description,
-      9
+
+    dispatch(
+      add({
+        description,
+        priority,
+        status: enums.Status.PENDENTE,
+        title
+      })
     )
-    dispatch(add(tarefaToAdd))
     navigate('/')
   }
 

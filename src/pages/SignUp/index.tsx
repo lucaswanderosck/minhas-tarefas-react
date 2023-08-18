@@ -4,7 +4,7 @@ import { NovaTarefa } from '../../containers/NovaTarefa'
 export const SignUp = () => {
   return (
     <>
-      <BarraLateral />
+      <BarraLateral showFilter={false} />
       <NovaTarefa />
     </>
   )
